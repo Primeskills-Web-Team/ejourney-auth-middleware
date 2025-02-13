@@ -12,7 +12,9 @@ var jwtSecret string
 func init() {
 	jwtSecret = os.Getenv("JWT_SECRET") // Ambil dari environment variable
 	if jwtSecret == "" {
-		log.Fatal("JWT_SECRET is required")
+		log.Fatal("JWT_SECRET is required") // Jika kosong, langsung fatal error
+	} else {
+		log.Println("Loaded JWT_SECRET:", jwtSecret) // Log untuk debugging
 	}
 }
 
