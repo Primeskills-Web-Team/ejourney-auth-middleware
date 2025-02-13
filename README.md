@@ -23,13 +23,8 @@ import (
 func SetupRouter() *gin.Engine {
     r := gin.Default()
     
-    cfg, err := configJwt.LoadConfig()
-    if err != nil {
-        log.Fatalf("Failed to load config: %v", err)
-    }
-    
     // Pasang middleware JWT untuk semua route
-    r.Use(middleware.EjourneyMiddlewareUserJWT(cfg.Secret))
+    r.Use(middleware.EjourneyMiddlewareUserJWT()
     
     r.GET("/ping", func(c *gin.Context) {
         c.JSON(200, gin.H{"message": "pong"})
@@ -43,13 +38,9 @@ Atau, jika hanya ingin digunakan dalam grup tertentu:
 
 ```go
 func Register(r *gin.Engine) {
-    cfg, err := configJwt.LoadConfig()
-    if err != nil {
-        log.Fatalf("Failed to load config: %v", err)
-    }
 
     modules := r.Group("/module")
-    modules.Use(middleware.EjourneyMiddlewareUserJWT(cfg.Secret))
+    modules.Use(middleware.EjourneyMiddlewareUserJWT()
     {
         modules.GET("/all", moduleCtrl.GetListModule)
         modules.POST("/create", moduleCtrl.CreateModule)
