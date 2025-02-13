@@ -1,4 +1,4 @@
-package ejourneyauthmiddleware
+package middleware
 
 import (
 	"fmt"
